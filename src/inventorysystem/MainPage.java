@@ -222,9 +222,9 @@ public class MainPage extends javax.swing.JFrame {
         }
         else{
          if(Method=="GET") 
-            sendData_GET("add","");//add url servlet
+            sendData_GET("add","http://localhost:8085/InventorySystemServlet/Server");//add url servlet
         else  
-            sendData_POST("add","");//add url servlet
+            sendData_POST("add","http://localhost:8085/InventorySystemServlet/Server");//add url servlet
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -238,9 +238,9 @@ public class MainPage extends javax.swing.JFrame {
         }
         else{
         if(Method=="GET")
-            sendData_GET("delete","");//add url servlet
+            sendData_GET("delete","http://localhost:8085/InventorySystemServlet/Server");//add url servlet
         else
-            sendData_POST("delete","");//add url servlet
+            sendData_POST("delete","http://localhost:8085/InventorySystemServlet/Server");//add url servlet
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 void sendData_GET(String operation,String url) {

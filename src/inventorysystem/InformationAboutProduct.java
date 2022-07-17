@@ -125,8 +125,8 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         else sendData_POST("http://localhost/inventorysystem/PHP_Server.php");
         }
         else{
-        if(this.Method.equals("GET"))sendData_GET("");//set servlet url
-        else sendData_POST("");//set servlet url
+        if(this.Method.equals("GET"))sendData_GET("http://localhost:8085/InventorySystemServlet/Server");//set servlet url
+        else sendData_POST("http://localhost:8085/InventorySystemServlet/Server");//set servlet url
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

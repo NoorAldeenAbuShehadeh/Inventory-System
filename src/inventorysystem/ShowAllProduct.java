@@ -37,9 +37,9 @@ public class ShowAllProduct extends javax.swing.JFrame {
         }
         else{
             if(this.Method.equals("GET"))
-                sendData_GET("");
+                sendData_GET("http://localhost:8085/InventorySystemServlet/Server");
             else 
-                sendData_POST("");
+                sendData_POST("http://localhost:8085/InventorySystemServlet/Server");
         }
     }
 

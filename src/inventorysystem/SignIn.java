@@ -162,6 +162,22 @@ public class SignIn extends javax.swing.JFrame {
         }
         else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        else if(ServerType.getSelectedItem().toString().equals("Servlet")&&Method.getSelectedItem().toString().equals("GET")){
+        String val=sendData_GET("http://localhost:8085/InventorySystemServlet/Server");
+        if(val.split("!")[0].equals("true")){
+            MainPage M1=new MainPage("GET", "Servlet",Integer.parseInt(EmployeeID.getText()),val.split("!")[1]);
+           M1.setVisible(true);
+        }
+        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(ServerType.getSelectedItem().toString().equals("Servlet")&&Method.getSelectedItem().toString().equals("POST")){
+        String val=sendData_POST("http://localhost:8085/InventorySystemServlet/Server");
+        if(val.split("!")[0].equals("true")){
+            MainPage M1=new MainPage("POST", "Servlet",Integer.parseInt(EmployeeID.getText()),val.split("!")[1]);
+           M1.setVisible(true);
+        }
+        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     String sendData_GET(String url) {
