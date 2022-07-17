@@ -5,6 +5,15 @@
  */
 package inventorysystem;
 
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Noor Aldeen Muneer
@@ -40,6 +49,7 @@ public class SignIn extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(512, 150));
 
         jLabel1.setText("Server");
 
@@ -83,7 +93,7 @@ public class SignIn extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(Password)))
                     .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,7 +104,7 @@ public class SignIn extends javax.swing.JFrame {
                             .addComponent(EmployeeID, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Method, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ServerType, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addGap(114, 114, 114))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,9 +146,96 @@ public class SignIn extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        if(ServerType.getSelectedItem().toString().equals("PHP Server")&&Method.getSelectedItem().toString().equals("GET")){
+        String val=sendData_GET("http://localhost/inventorysystem/PHP_Server.php");
+        if(val.split("!")[1].equals("true")){
+           MainPage M1= new MainPage("GET", "PHP Server",Integer.parseInt(EmployeeID.getText()),val.split("!")[0]);
+           M1.setVisible(true);
+        }
+        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(ServerType.getSelectedItem().toString().equals("PHP Server")&&Method.getSelectedItem().toString().equals("POST")){
+        String val=sendData_POST("http://localhost/inventorysystem/PHP_Server.php");
+        if(val.split("!")[1].equals("true")){
+            MainPage M1=new MainPage("POST", "PHP Server",Integer.parseInt(EmployeeID.getText()),val.split("!")[0]);
+           M1.setVisible(true);
+        }
+        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    String sendData_GET(String url) {
+        String SS="";
+        DataInputStream dis;
+        String Eid = this.EmployeeID.getText().trim();
+        String Pass = this.Password.getText().trim();
+        try {
+            String str = url+"?EmpID="+Eid+"&Password="+Pass;
+            URL u = new URL(str);
+            dis = new DataInputStream(u.openConnection().getInputStream());
+            URLConnection myConn = u.openConnection();
+            InputStream is = myConn.getInputStream();
+            int b;
+            while ((b = is.read()) != -1) {
+                    SS = SS + (char) b;
+            }
+            System.out.print(SS);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+return SS;
+    }
+    
+        
+    String dataStr = "";
+    String contentStr = "application/x-www-form-urlencoded";
+
+    public void addParameter(String ps, String vs) {
+        if (ps == null || vs == null || ps.length() == 0 || vs.length() == 0) {
+            return;
+        }
+        if (dataStr.length() > 0) {
+            dataStr += "&";
+        }
+        try {
+            dataStr += ps + "=" + URLEncoder.encode(vs, "ASCII");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+        String sendData_POST(String url) {
+        dataStr = "";
+        OutputStream os;
+        InputStream is;
+        String Eid = this.EmployeeID.getText().trim();
+        String Pass = this.Password.getText().trim();
+        addParameter("EmpID", Eid);
+        addParameter("Password", Pass);
+        String urlStr = url;
+        String SS = "";
+        try {
+            URL myURL = new URL(urlStr);
+            URLConnection myConn = myURL.openConnection();
+            myConn.setDoOutput(true);
+            myConn.setDoInput(true);
+            myConn.setRequestProperty("Content-Type", contentStr);
+            myConn.setUseCaches(false);
+            BufferedOutputStream out = new BufferedOutputStream(myConn.getOutputStream());
+            out.write(dataStr.getBytes());
+            out.close();
+            int b = -1;
+            is = myConn.getInputStream();
+            while ((b = is.read()) != -1) {
+                SS = SS + (char) b;
+            }
+           
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
+    return SS;
+    }
     private void EmployeeIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EmployeeIDActionPerformed
@@ -150,37 +247,7 @@ public class SignIn extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SignIn().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField EmployeeID;

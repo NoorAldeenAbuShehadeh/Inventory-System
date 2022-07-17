@@ -5,6 +5,14 @@
  */
 package inventorysystem;
 
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+
 /**
  *
  * @author Noor Aldeen Muneer
@@ -14,11 +22,56 @@ public class MainPage extends javax.swing.JFrame {
     /**
      * Creates new form MainPage
      */
-    String Method,Server;
-    public MainPage(String method,String server) {
+    String Method,Server,LAT;
+    int Empid;
+    public MainPage(String method,String server,int eid,String lat) {
         initComponents();
         this.Method=method;
         this.Server=server;
+        Empid=eid;
+        LAT=lat;
+        LastAccessTime.setText(lat);
+        
+        try {
+        dataStr = "";
+        OutputStream os;
+        InputStream is;
+        addParameter("Empselid", ""+Empid);
+        String urlStr="";
+        if(Server.equals("PHP Server"))
+            urlStr ="http://localhost/inventorysystem/PHP_Server.php";
+        else
+            urlStr="http://localhost:8085/InventorySystemServlet/Server";
+        URLConnection myConn = null;
+        if(this.Method.equals("GET"))
+        {
+            urlStr+="?"+dataStr;
+            System.out.println(urlStr);
+            System.out.println("..............................");
+            URL myURL = new URL(urlStr);
+            DataInputStream dis = new DataInputStream(myURL.openConnection().getInputStream());
+             myConn = myURL.openConnection();
+        }
+        else if(this.Method.equals("POST")){
+        URL myURL = new URL(urlStr);
+            myConn = myURL.openConnection();
+            myConn.setDoOutput(true);
+            myConn.setDoInput(true);
+            myConn.setRequestProperty("Content-Type", contentStr);
+            myConn.setUseCaches(false);
+            BufferedOutputStream out = new BufferedOutputStream(myConn.getOutputStream());
+            out.write(dataStr.getBytes());
+            out.close();
+            int b = -1;
+            is = myConn.getInputStream();
+            String SS="";
+            while ((b = is.read()) != -1) {
+                SS = SS + (char) b;
+            }
+        }
+        }catch(Exception e){
+        e.printStackTrace();
+        }
     }
 
     /**
@@ -41,7 +94,8 @@ public class MainPage extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(400, 200));
 
         jLabel1.setText("Last access time");
 
@@ -57,8 +111,18 @@ public class MainPage extends javax.swing.JFrame {
         jLabel3.setText("Amount");
 
         jButton1.setText("insert item");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Withdraw item");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Show All Product in Inventory ");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -114,19 +178,16 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(LastAccessTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(prodid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(prodid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4)
                 .addGap(9, 9, 9)
@@ -143,48 +204,119 @@ public class MainPage extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        new InformationAboutProduct().setVisible(true);
+        new InformationAboutProduct(this.Method,this.Server).setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        new ShowAllProduct().setVisible(true);
+        new ShowAllProduct(this.Method,this.Server).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if(this.Server.equals("PHP Server")){
+        if(Method=="GET") 
+            sendData_GET("add","http://localhost/inventorysystem/PHP_Server.php");
+        else  
+            sendData_POST("add","http://localhost/inventorysystem/PHP_Server.php");
+        }
+        else{
+         if(Method=="GET") 
+            sendData_GET("add","");//add url servlet
+        else  
+            sendData_POST("add","");//add url servlet
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(this.Server.equals("PHP Server")){
+        if(Method=="GET")
+            sendData_GET("delete","http://localhost/inventorysystem/PHP_Server.php");
+        else
+            sendData_POST("delete","http://localhost/inventorysystem/PHP_Server.php");
+        }
+        else{
+        if(Method=="GET")
+            sendData_GET("delete","");//add url servlet
+        else
+            sendData_POST("delete","");//add url servlet
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+void sendData_GET(String operation,String url) {
+        String SS="";
+        DataInputStream dis;
+        String prodid = this.prodid.getText().trim();
+        String amount = this.Amount.getText().trim();
+        try {
+            String str =url+"?ProdID="+prodid+"&Ammount="+amount+"&status="+operation;
+            URL u = new URL(str);
+            dis = new DataInputStream(u.openConnection().getInputStream());
+            URLConnection myConn = u.openConnection();
+//            InputStream is = myConn.getInputStream();
+//            int b;
+//            while ((b = is.read()) != -1) {
+//                    SS = SS + (char) b;
+//            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+        
+    String dataStr = "";
+    String contentStr = "application/x-www-form-urlencoded";
+
+    public void addParameter(String ps, String vs) {
+        if (ps == null || vs == null || ps.length() == 0 || vs.length() == 0) {
+            return;
+        }
+        if (dataStr.length() > 0) {
+            dataStr += "&";
+        }
+        try {
+            dataStr += ps + "=" + URLEncoder.encode(vs, "ASCII");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+        void sendData_POST(String operation,String url) {
+        dataStr = "";
+        OutputStream os;
+        InputStream is;
+         String prodid = this.prodid.getText().trim();
+        String amount = this.Amount.getText().trim();
+        addParameter("ProdID", prodid);
+        addParameter("Ammount", amount);
+        addParameter("status", operation);
+        String urlStr = url;
+        String SS = "";
+        try {
+            URL myURL = new URL(urlStr);
+            URLConnection myConn = myURL.openConnection();
+            myConn.setDoOutput(true);
+            myConn.setDoInput(true);
+            myConn.setRequestProperty("Content-Type", contentStr);
+            myConn.setUseCaches(false);
+            BufferedOutputStream out = new BufferedOutputStream(myConn.getOutputStream());
+            out.write(dataStr.getBytes());
+            out.close();
+            int b = -1;
+            is = myConn.getInputStream();
+            while ((b = is.read()) != -1) {
+                SS = SS + (char) b;
+            }
+           
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-             
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Amount;
