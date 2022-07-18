@@ -55,6 +55,7 @@ public class SignIn extends javax.swing.JFrame {
         Password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(350, 150));
@@ -117,7 +118,7 @@ public class SignIn extends javax.swing.JFrame {
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 400, 10));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 400, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 400, 10));
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 400, 10));
@@ -144,6 +145,9 @@ public class SignIn extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel6.setText("Inventory System ");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 170, -1));
+
+        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 400, 10));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 380));
 
@@ -248,5 +252,6 @@ public static boolean isNumeric(String str) {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     // End of variables declaration//GEN-END:variables
 }
