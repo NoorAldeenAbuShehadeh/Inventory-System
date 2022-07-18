@@ -28,7 +28,7 @@ public class SignIn extends javax.swing.JFrame {
         initComponents();
         //
     }
-
+    InventorySystem sys =new InventorySystem(); 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -167,7 +167,9 @@ public static boolean isNumeric(String str) {
         }
         else{
         if(ServerType.getSelectedItem().toString().equals("PHP Server")&&Method.getSelectedItem().toString().equals("GET")){
-        String val=sendData_GET("http://localhost/inventorysystem/PHP_Server.php");
+            String Eid = this.EmployeeID.getText().trim();
+            String Pass = this.Password.getText().trim();
+            String val=sys.sendData_GET("http://localhost/inventorysystem/PHP_Server.php"+"?EmpID="+Eid+"&Password="+Pass);
         if(val.split("!")[1].equals("true")){
            MainPage M1= new MainPage("GET", "PHP Server",Integer.parseInt(EmployeeID.getText()),val.split("!")[0]);
            M1.setVisible(true);
@@ -176,7 +178,9 @@ public static boolean isNumeric(String str) {
         else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.WARNING_MESSAGE);
         }
         else if(ServerType.getSelectedItem().toString().equals("PHP Server")&&Method.getSelectedItem().toString().equals("POST")){
-        String val=sendData_POST("http://localhost/inventorysystem/PHP_Server.php");
+            String Eid = this.EmployeeID.getText().trim();
+            String Pass = this.Password.getText().trim();
+            String val=sys.sendData_POST("EmpID#Password", Eid+"#"+Pass, "http://localhost/inventorysystem/PHP_Server.php");
         if(val.split("!")[1].equals("true")){
             MainPage M1=new MainPage("POST", "PHP Server",Integer.parseInt(EmployeeID.getText()),val.split("!")[0]);
            M1.setVisible(true);
@@ -185,7 +189,9 @@ public static boolean isNumeric(String str) {
         else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.WARNING_MESSAGE);
         }
         else if(ServerType.getSelectedItem().toString().equals("Servlet")&&Method.getSelectedItem().toString().equals("GET")){
-        String val=sendData_GET("http://localhost:8085/InventorySystemServlet/Server");
+            String Eid = this.EmployeeID.getText().trim();
+            String Pass = this.Password.getText().trim();
+            String val=sys.sendData_GET("http://localhost:8085/InventorySystemServlet/Server"+"?EmpID="+Eid+"&Password="+Pass);
         if(val.split("!")[0].equals("true")){
             MainPage M1=new MainPage("GET", "Servlet",Integer.parseInt(EmployeeID.getText()),val.split("!")[1]);
            M1.setVisible(true);
@@ -194,7 +200,9 @@ public static boolean isNumeric(String str) {
         else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.WARNING_MESSAGE);
         }
         else if(ServerType.getSelectedItem().toString().equals("Servlet")&&Method.getSelectedItem().toString().equals("POST")){
-        String val=sendData_POST("http://localhost:8085/InventorySystemServlet/Server");
+            String Eid = this.EmployeeID.getText().trim();
+            String Pass = this.Password.getText().trim();
+            String val=sys.sendData_POST("EmpID#Password", Eid+"#"+Pass, "http://localhost:8085/InventorySystemServlet/Server");
         if(val.split("!")[0].equals("true")){
             MainPage M1=new MainPage("POST", "Servlet",Integer.parseInt(EmployeeID.getText()),val.split("!")[1]);
            M1.setVisible(true);
@@ -205,78 +213,6 @@ public static boolean isNumeric(String str) {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    String sendData_GET(String url) {
-        String SS="";
-        DataInputStream dis;
-        String Eid = this.EmployeeID.getText().trim();
-        String Pass = this.Password.getText().trim();
-        try {
-            String str = url+"?EmpID="+Eid+"&Password="+Pass;
-            URL u = new URL(str);
-            dis = new DataInputStream(u.openConnection().getInputStream());
-            URLConnection myConn = u.openConnection();
-            InputStream is = myConn.getInputStream();
-            int b;
-            while ((b = is.read()) != -1) {
-                    SS = SS + (char) b;
-            }
-            System.out.print(SS);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-return SS;
-    }
-    
-        
-    String dataStr = "";
-    String contentStr = "application/x-www-form-urlencoded";
-
-    public void addParameter(String ps, String vs) {
-        if (ps == null || vs == null || ps.length() == 0 || vs.length() == 0) {
-            return;
-        }
-        if (dataStr.length() > 0) {
-            dataStr += "&";
-        }
-        try {
-            dataStr += ps + "=" + URLEncoder.encode(vs, "ASCII");
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
-    
-        String sendData_POST(String url) {
-        dataStr = "";
-        OutputStream os;
-        InputStream is;
-        String Eid = this.EmployeeID.getText().trim();
-        String Pass = this.Password.getText().trim();
-        addParameter("EmpID", Eid);
-        addParameter("Password", Pass);
-        String urlStr = url;
-        String SS = "";
-        try {
-            URL myURL = new URL(urlStr);
-            URLConnection myConn = myURL.openConnection();
-            myConn.setDoOutput(true);
-            myConn.setDoInput(true);
-            myConn.setRequestProperty("Content-Type", contentStr);
-            myConn.setUseCaches(false);
-            BufferedOutputStream out = new BufferedOutputStream(myConn.getOutputStream());
-            out.write(dataStr.getBytes());
-            out.close();
-            int b = -1;
-            is = myConn.getInputStream();
-            while ((b = is.read()) != -1) {
-                SS = SS + (char) b;
-            }
-           
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        
-    return SS;
-    }
     private void EmployeeIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EmployeeIDActionPerformed

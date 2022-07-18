@@ -30,7 +30,7 @@ public class InformationAboutProduct extends javax.swing.JFrame {
      * Creates new form InformationAboutProduct
      */
     String Method,Server,LAT;
-    
+    InventorySystem sys =new InventorySystem(); 
     public InformationAboutProduct(String method,String server,String lat) {
         initComponents();
         this.Method=method;
@@ -47,6 +47,33 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         TableColumn TC=mod1.getColumn(1);
         TC.setPreferredWidth(250);
         
+    }
+    void responce (String SS)
+    {
+        String [] res = SS.split("!");
+                    if(res[0].equals("found"))
+                    {
+                        
+                        String [] items =new String[5];
+                        String [] tmp= res[1].split(":");
+                        System.arraycopy(tmp, 0, items, 0, 4);
+                        items[4]=String.valueOf(sys.API(Double.parseDouble(items[3])));
+                        
+                        
+                        
+                        System.err.println(Double.parseDouble(items[3]));
+                        System.out.println(sys.API(Double.parseDouble(items[3])));
+                        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                        model.setRowCount(0);
+                        model.addRow(items);
+//                        JOptionPane.showMessageDialog(null,"update successfuly");
+                    }
+                    else if(res[0].equals("notfound"))
+                    {
+                        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                        model.setRowCount(0);
+                        JOptionPane.showMessageDialog(null,"Not found the product");
+                    }
     }
 
     /**
@@ -148,12 +175,30 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "please Enter data with correct formate", "Error", JOptionPane.WARNING_MESSAGE);
         }
         else if(this.Server.equals("PHP Server")){
-        if(this.Method.equals("GET"))sendData_GET("http://localhost/inventorysystem/PHP_Server.php");
-        else sendData_POST("http://localhost/inventorysystem/PHP_Server.php");
+        if(this.Method.equals("GET")){
+            String prodid = this.prodidsearch.getText().trim();
+            String SS=sys.sendData_GET("http://localhost/inventorysystem/PHP_Server.php"+"?ProdIDSearch="+prodid);
+            responce(SS);
+            
         }
         else{
-        if(this.Method.equals("GET"))sendData_GET("http://localhost:8085/InventorySystemServlet/Server");//set servlet url
-        else sendData_POST("http://localhost:8085/InventorySystemServlet/Server");//set servlet url
+            String prodid = this.prodidsearch.getText().trim();
+            String SS=sys.sendData_POST("ProdIDSearch#",prodid+"#","http://localhost/inventorysystem/PHP_Server.php"); 
+            responce(SS);
+        }
+        }
+        else{
+        if(this.Method.equals("GET"))
+        {
+            String prodid = this.prodidsearch.getText().trim();
+            String SS=sys.sendData_GET("http://localhost:8085/InventorySystemServlet/Server"+"?ProdIDSearch="+prodid); 
+            responce(SS);
+        }
+        else {
+            String prodid = this.prodidsearch.getText().trim();
+            String SS=sys.sendData_POST("ProdIDSearch#",prodid+"#","http://localhost:8085/InventorySystemServlet/Server"); 
+            responce(SS);
+        }
         }
          
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -163,125 +208,7 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         new MainPage(this.Method, this.Server, this.LAT).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-    InventorySystem n =new InventorySystem();
-    void sendData_GET(String url) {
-        String SS="";
-        DataInputStream dis;
-        String prodid = this.prodidsearch.getText().trim();
-        try {
-            String str = url+"?ProdIDSearch="+prodid;
-            URL u = new URL(str);
-            dis = new DataInputStream(u.openConnection().getInputStream());
-            URLConnection myConn = u.openConnection();
-            InputStream is = myConn.getInputStream();
-            int b;
-            while ((b = is.read()) != -1) {
-                    SS = SS + (char) b;
-            }
-            System.out.println(SS);
-             
-                    String [] res = SS.split("!");
-                    if(res[0].equals("found"))
-                    {
-                        
-                        String [] items =new String[5];
-                        String [] tmp= res[1].split(":");
-                        System.arraycopy(tmp, 0, items, 0, 4);
-                        items[4]=String.valueOf(n.API(Double.parseDouble(items[3])));
-                        
-                        
-                        
-                        System.err.println(Double.parseDouble(items[3]));
-                        System.out.println(n.API(Double.parseDouble(items[3])));
-                        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                        model.setRowCount(0);
-                        model.addRow(items);
-//                        JOptionPane.showMessageDialog(null,"update successfuly");
-                    }
-                    else if(res[0].equals("notfound"))
-                    {
-                        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                        model.setRowCount(0);
-                        JOptionPane.showMessageDialog(null,"Not found the product");
-                    }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
     
-        
-    String dataStr = "";
-    String contentStr = "application/x-www-form-urlencoded";
-
-    public void addParameter(String ps, String vs) {
-        if (ps == null || vs == null || ps.length() == 0 || vs.length() == 0) {
-            return;
-        }
-        if (dataStr.length() > 0) {
-            dataStr += "&";
-        }
-        try {
-            dataStr += ps + "=" + URLEncoder.encode(vs, "ASCII");
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
-    
-        void sendData_POST(String url) {
-        dataStr = "";
-        OutputStream os;
-        InputStream is;
-         String prodid = this.prodidsearch.getText().trim();
-        addParameter("ProdIDSearch", prodid);
-        String urlStr = url;
-        String SS = "";
-        try {
-            URL myURL = new URL(urlStr);
-            URLConnection myConn = myURL.openConnection();
-            myConn.setDoOutput(true);
-            myConn.setDoInput(true);
-            myConn.setRequestProperty("Content-Type", contentStr);
-            myConn.setUseCaches(false);
-            BufferedOutputStream out = new BufferedOutputStream(myConn.getOutputStream());
-            out.write(dataStr.getBytes());
-            out.close();
-            int b = -1;
-            is = myConn.getInputStream();
-            while ((b = is.read()) != -1) {
-                SS = SS + (char) b;
-            }
-           System.out.println(SS);
-                    String [] res = SS.split("!");
-                    if(res[0].equals("found"))
-                    {
-                        String [] items =new String[5];
-                        String [] tmp= res[1].split(":");
-                        for(int i=0;i<4;i++)
-                        {
-                            items[i]=tmp[i]; 
-                        }
-                        items[4]=String.valueOf(n.API(Double.parseDouble(items[3])));
-                        
-                        
-                        
-                        System.err.println(Double.parseDouble(items[3]));
-                        System.out.println(n.API(Double.parseDouble(items[3])));
-                        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                        model.setRowCount(0);
-                        model.addRow(items);
-//                        JOptionPane.showMessageDialog(null,"update successfuly");
-                    }
-                    else if(res[0].equals("notfound"))
-                    {
-                        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                        model.setRowCount(0);
-                        JOptionPane.showMessageDialog(null,"Not found the product");
-                    }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        
-    }
     /**
      * @param args the command line arguments
      */

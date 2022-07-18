@@ -29,22 +29,50 @@ public class ShowAllProduct extends javax.swing.JFrame {
      * Creates new form ShowAllProduct
      */
     String Method,Server,LAT;
+    InventorySystem sys =new InventorySystem(); 
+    void responce (String val)
+    {
+        String [] res = val.split("@");
+                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                    for (int i=0;i<res.length;i++)
+                    {
+                        String [] items =new String[5];
+                        String [] tmp= res[i].split(":");
+                        System.arraycopy(tmp, 0, items, 0, 4);
+                        items[4]=String.valueOf(sys.API(Double.parseDouble(items[3])));
+                        model.addRow(items);
+                    }
+    }
     public ShowAllProduct(String method,String server,String lat) {
         initComponents();
         this.Method=method;
         this.Server=server;
         this.LAT=lat;
+//        String val="";
         if(server.equals("PHP Server")){
-            if(this.Method.equals("GET"))
-                sendData_GET("http://localhost/inventorysystem/PHP_Server.php");
-            else 
-                sendData_POST("http://localhost/inventorysystem/PHP_Server.php");
+            if(this.Method.equals("GET")){
+                String val =sys.sendData_GET("http://localhost/inventorysystem/PHP_Server.php"+"?show="+"all");
+                responce(val);
+            }
+            else {
+                String val =sys.sendData_POST("show#", "all#", "http://localhost/inventorysystem/PHP_Server.php");
+                String [] res = val.split("@");
+                responce(val);
+            }
         }
         else{
             if(this.Method.equals("GET"))
-                sendData_GET("http://localhost:8085/InventorySystemServlet/Server");
+            {
+                String val =sys.sendData_GET("http://localhost:8085/InventorySystemServlet/Server"+"?show="+"all");
+                String [] res = val.split("@");
+                responce(val);
+            }
             else 
-                sendData_POST("http://localhost:8085/InventorySystemServlet/Server");
+            {
+                String val =sys.sendData_POST("show#", "all#", "http://localhost:8085/InventorySystemServlet/Server");
+                String [] res = val.split("@");
+                responce(val);
+            }
         }
         jTable1.setRowHeight(40);
         jTable1.setShowGrid(true);
@@ -59,93 +87,8 @@ public class ShowAllProduct extends javax.swing.JFrame {
         
     }
 
-        void sendData_GET(String url) {
-        String SS="";
-        DataInputStream dis;
-        try {
-            String str = url+"?show="+"all";
-            URL u = new URL(str);
-            dis = new DataInputStream(u.openConnection().getInputStream());
-            URLConnection myConn = u.openConnection();
-            InputStream is = myConn.getInputStream();
-            int b;
-            while ((b = is.read()) != -1) {
-                    SS = SS + (char) b;
-            }
-                 System.out.println(SS);
-                    String [] res = SS.split("@");
-                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                    for (int i=0;i<res.length;i++)
-                    {
-                        String [] items =new String[5];
-                        String [] tmp= res[i].split(":");
-                        System.arraycopy(tmp, 0, items, 0, 4);
-                        items[4]=String.valueOf(n.API(Double.parseDouble(items[3])));
-                        model.addRow(items);
-                    }
-                    
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
     
         
-    String dataStr = "";
-    String contentStr = "application/x-www-form-urlencoded";
-
-    public void addParameter(String ps, String vs) {
-        if (ps == null || vs == null || ps.length() == 0 || vs.length() == 0) {
-            return;
-        }
-        if (dataStr.length() > 0) {
-            dataStr += "&";
-        }
-        try {
-            dataStr += ps + "=" + URLEncoder.encode(vs, "ASCII");
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
-    
-        void sendData_POST(String url) {
-        dataStr = "";
-        OutputStream os;
-        InputStream is;
-        addParameter("show","all");
-        String urlStr = url;
-        String SS = "";
-        try {
-            URL myURL = new URL(urlStr);
-            URLConnection myConn = myURL.openConnection();
-            myConn.setDoOutput(true);
-            myConn.setDoInput(true);
-            myConn.setRequestProperty("Content-Type", contentStr);
-            myConn.setUseCaches(false);
-            BufferedOutputStream out = new BufferedOutputStream(myConn.getOutputStream());
-            out.write(dataStr.getBytes());
-            out.close();
-            int b = -1;
-            is = myConn.getInputStream();
-            while ((b = is.read()) != -1) {
-                SS = SS + (char) b;
-            }
-           System.out.println(SS);
-                    String [] res = SS.split("@");
-                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                    for (int i=0;i<res.length;i++)
-                    {
-                        String [] items =new String[5];
-                        String [] tmp= res[i].split(":");
-                        System.arraycopy(tmp, 0, items, 0, 4);
-                        items[4]=String.valueOf(n.API(Double.parseDouble(items[3])));
-                        model.addRow(items);
-                    }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        
-    }
-        InventorySystem n =new InventorySystem();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
