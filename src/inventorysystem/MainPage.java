@@ -227,7 +227,7 @@ public static boolean isNumeric(String str) {
         if(result.equals("found")){
         JOptionPane.showMessageDialog(null,"update successfuly");
         }
-        else{
+        else if(!result.isEmpty()){
         JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
         }
         prodid.setText("");
@@ -262,7 +262,7 @@ public static boolean isNumeric(String str) {
         if(result.equals("found")){
         JOptionPane.showMessageDialog(null,"update successfuly");
         }
-        else{
+        else if(!result.isEmpty()){
         JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
         }
         prodid.setText("");
