@@ -40,6 +40,8 @@ public class MainPage extends javax.swing.JFrame {
         Empid=eid;
         LAT=lat;
         LastAccessTime.setText(lat);
+        String namedata="Empselid#";
+        String data=""+Empid+"#";
         
         try {
         dataStr = "";

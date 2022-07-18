@@ -59,7 +59,7 @@ public class InventorySystem {
     }
     
     //******************************************************************************************************
-    public static void sendData_GET(String operation,String url) {
+    public static String sendData_GET(String operation,String url) {
         String SS="";
         DataInputStream dis;
         try {
@@ -72,15 +72,16 @@ public class InventorySystem {
             while ((b = is.read()) != -1) {
                     SS = SS + (char) b;
             }
-           if(SS.equals("found")){
-            JOptionPane.showMessageDialog(null,"update successfuly");
-           }
-           else{
-            JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
-           }
+//           if(SS.equals("found")){
+//            JOptionPane.showMessageDialog(null,"update successfuly");
+//           }
+//           else{
+//            JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
+//           }
         } catch (Exception e) {
             System.out.println(e.toString());
         }
+        return SS;
     }
     
         
@@ -101,8 +102,9 @@ public class InventorySystem {
         }
     }
     
-        public static void sendData_POST(String namedata,String data,String url) {
+        public static String sendData_POST(String namedata,String data,String url) {
         dataStr = "";
+        String SS = "";
         OutputStream os;
         InputStream is;
         String []arrnamedata=namedata.split("#");
@@ -111,7 +113,6 @@ public class InventorySystem {
         addParameter(arrnamedata[i], arrdata[i]);
         }
         String urlStr = url;
-        String SS = "";
         try {
             URL myURL = new URL(urlStr);
             URLConnection myConn = myURL.openConnection();
@@ -127,16 +128,17 @@ public class InventorySystem {
             while ((b = is.read()) != -1) {
                 SS = SS + (char) b;
             }
-           if(SS.equals("found")){
-            JOptionPane.showMessageDialog(null,"update successfuly");
-           }
-           else{
-            JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
-           }
+//           if(SS.equals("found")){
+//            JOptionPane.showMessageDialog(null,"update successfuly");
+//           }
+//           else{
+//            JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
+//           }
+
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-        
+        return SS;
     }
     //******************************************************************************************************
     public static void main(String[] args) throws IOException {
