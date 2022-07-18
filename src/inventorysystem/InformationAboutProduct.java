@@ -5,6 +5,8 @@
  */
 package inventorysystem;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.InputStream;
@@ -14,6 +16,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -47,25 +51,36 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setLocation(new java.awt.Point(400, 150));
+        setLocation(new java.awt.Point(250, 220));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jLabel1.setText("Product id");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(173, 37, 91, 32));
 
+        prodidsearch.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        prodidsearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        getContentPane().add(prodidsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 36, 138, 32));
+
+        jButton1.setBackground(new java.awt.Color(204, 204, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton1.setText("Search");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 37, 92, 32));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Product id", "Name", "Amount", "Price / item ($)", "Price / item (EURE)"
+                "Product id", "Name", "Amount", "Price / item ($)", "Price / item (EUR)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -85,35 +100,11 @@ public class InformationAboutProduct extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(prodidsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(prodidsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 87, 789, 93));
+
+        jPanel1.setBackground(new java.awt.Color(240, 197, 220));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 280));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -128,6 +119,17 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         if(this.Method.equals("GET"))sendData_GET("http://localhost:8085/InventorySystemServlet/Server");//set servlet url
         else sendData_POST("http://localhost:8085/InventorySystemServlet/Server");//set servlet url
         }
+        jTable1.setRowHeight(60);
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(Color.red);
+        jTable1.setBackground(Color.CYAN);
+        jTable1.setForeground(Color.WHITE);
+        jTable1.setSelectionBackground(Color.WHITE);
+        jTable1.setSelectionForeground(Color.BLACK);
+        jTable1.setFont(new Font("Comic Sans MS",Font.ITALIC,30));
+        TableColumnModel mod1=jTable1.getColumnModel();
+        TableColumn TC=mod1.getColumn(1);
+        TC.setPreferredWidth(300);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     void sendData_GET(String url) {
@@ -235,6 +237,7 @@ public class InformationAboutProduct extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField prodidsearch;

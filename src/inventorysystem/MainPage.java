@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -83,124 +84,92 @@ public class MainPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        LastAccessTime = new javax.swing.JTextField();
+        LastAccessTime = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         prodid = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        Amount = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        Amount = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setLocation(new java.awt.Point(400, 200));
+        setLocation(new java.awt.Point(370, 190));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Last access time");
+        LastAccessTime.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        getContentPane().add(LastAccessTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 230, 30));
 
-        LastAccessTime.setEditable(false);
-        LastAccessTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LastAccessTimeActionPerformed(evt);
-            }
-        });
-
+        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel2.setText("Product id");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 120, 30));
 
-        jLabel3.setText("Amount");
+        prodid.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        prodid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        getContentPane().add(prodid, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 150, 30));
 
-        jButton1.setText("insert item");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel4.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel4.setText("Last access time");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 180, 30));
 
-        jButton2.setText("Withdraw item");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(240, 197, 220));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton3.setBackground(new java.awt.Color(204, 204, 255));
+        jButton3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton3.setText("Show All Product in Inventory ");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 280, 40));
 
+        jButton4.setBackground(new java.awt.Color(204, 204, 255));
+        jButton4.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton4.setText("Show Information about a Product ");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(36, 36, 36)
-                        .addComponent(LastAccessTime, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(prodid, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Amount, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(105, 105, 105))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(LastAccessTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(prodid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
-                .addGap(9, 9, 9)
-                .addComponent(jButton3)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
+        jButton1.setBackground(new java.awt.Color(204, 204, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jButton1.setText("insert item");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 150, 40));
+
+        jButton2.setBackground(new java.awt.Color(204, 204, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jButton2.setText("Withdraw item");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 150, 40));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel3.setText("Amount");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 100, 30));
+
+        Amount.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        Amount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(Amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 150, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 640, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void LastAccessTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastAccessTimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LastAccessTimeActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -251,13 +220,20 @@ void sendData_GET(String operation,String url) {
         try {
             String str =url+"?ProdID="+prodid+"&Ammount="+amount+"&status="+operation;
             URL u = new URL(str);
-            dis = new DataInputStream(u.openConnection().getInputStream());
             URLConnection myConn = u.openConnection();
-//            InputStream is = myConn.getInputStream();
-//            int b;
-//            while ((b = is.read()) != -1) {
-//                    SS = SS + (char) b;
-//            }
+            dis = new DataInputStream(myConn.getInputStream());
+            
+            InputStream is = myConn.getInputStream();
+            int b;
+            while ((b = is.read()) != -1) {
+                    SS = SS + (char) b;
+            }
+           if(SS.equals("found")){
+            JOptionPane.showMessageDialog(null,"update successfuly");
+           }
+           else{
+            JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
+           }
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -307,7 +283,12 @@ void sendData_GET(String operation,String url) {
             while ((b = is.read()) != -1) {
                 SS = SS + (char) b;
             }
-           
+           if(SS.equals("found")){
+            JOptionPane.showMessageDialog(null,"update successfuly");
+           }
+           else{
+            JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
+           }
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -320,14 +301,15 @@ void sendData_GET(String operation,String url) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Amount;
-    private javax.swing.JTextField LastAccessTime;
+    private javax.swing.JLabel LastAccessTime;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField prodid;
     // End of variables declaration//GEN-END:variables
 }

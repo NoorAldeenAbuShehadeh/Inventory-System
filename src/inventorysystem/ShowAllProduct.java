@@ -5,6 +5,8 @@
  */
 package inventorysystem;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.InputStream;
@@ -14,6 +16,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -41,6 +45,17 @@ public class ShowAllProduct extends javax.swing.JFrame {
             else 
                 sendData_POST("http://localhost:8085/InventorySystemServlet/Server");
         }
+        AllProd.setRowHeight(40);
+        AllProd.setShowGrid(true);
+        AllProd.setGridColor(Color.red);
+        AllProd.setBackground(Color.BLACK);
+        AllProd.setForeground(Color.WHITE);
+        AllProd.setSelectionBackground(Color.WHITE);
+        AllProd.setSelectionForeground(Color.BLACK);
+        AllProd.setFont(new Font("Comic Sans MS",Font.ITALIC,20));
+        TableColumnModel mod1=AllProd.getColumnModel();
+        TableColumn TC=mod1.getColumn(1);
+        TC.setPreferredWidth(300);
     }
 
         void sendData_GET(String url) {
@@ -134,16 +149,18 @@ public class ShowAllProduct extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         AllProd = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setLocation(new java.awt.Point(400, 150));
+        setLocation(new java.awt.Point(250, 220));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         AllProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Product id", "Name", "Amount", "Price / item ($)", "Price / item (EURE)"
+                "Product id", "Name", "Amount", "Price / item ($)", "Price / item (EUR)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -156,26 +173,11 @@ public class ShowAllProduct extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(AllProd);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(37, 37, 37)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(31, Short.MAX_VALUE)))
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 37, 810, 232));
+
+        jPanel1.setBackground(new java.awt.Color(240, 197, 220));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -187,6 +189,7 @@ public class ShowAllProduct extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable AllProd;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
