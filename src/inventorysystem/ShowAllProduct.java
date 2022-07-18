@@ -28,11 +28,12 @@ public class ShowAllProduct extends javax.swing.JFrame {
     /**
      * Creates new form ShowAllProduct
      */
-    String Method,Server;
-    public ShowAllProduct(String method,String server) {
+    String Method,Server,LAT;
+    public ShowAllProduct(String method,String server,String lat) {
         initComponents();
         this.Method=method;
         this.Server=server;
+        this.LAT=lat;
         if(server.equals("PHP Server")){
             if(this.Method.equals("GET"))
                 sendData_GET("http://localhost/inventorysystem/PHP_Server.php");
@@ -45,17 +46,17 @@ public class ShowAllProduct extends javax.swing.JFrame {
             else 
                 sendData_POST("http://localhost:8085/InventorySystemServlet/Server");
         }
-        AllProd.setRowHeight(40);
-        AllProd.setShowGrid(true);
-        AllProd.setGridColor(Color.red);
-        AllProd.setBackground(Color.BLACK);
-        AllProd.setForeground(Color.WHITE);
-        AllProd.setSelectionBackground(Color.WHITE);
-        AllProd.setSelectionForeground(Color.BLACK);
-        AllProd.setFont(new Font("Comic Sans MS",Font.ITALIC,20));
-        TableColumnModel mod1=AllProd.getColumnModel();
+        jTable1.setRowHeight(40);
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(Color.BLACK);
+        jTable1.setBackground(Color.WHITE);
+        jTable1.setForeground(Color.BLACK);
+        jTable1.setFont(new Font("Comic Sans MS",Font.ITALIC,20));
+        jTable1.getTableHeader().setFont(new Font("Comic Sans MS",Font.ITALIC,15));
+        TableColumnModel mod1=jTable1.getColumnModel();
         TableColumn TC=mod1.getColumn(1);
-        TC.setPreferredWidth(300);
+        TC.setPreferredWidth(250);
+        
     }
 
         void sendData_GET(String url) {
@@ -73,7 +74,7 @@ public class ShowAllProduct extends javax.swing.JFrame {
             }
                  System.out.println(SS);
                     String [] res = SS.split("@");
-                    DefaultTableModel model = (DefaultTableModel) AllProd.getModel();
+                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                     for (int i=0;i<res.length;i++)
                     {
                         String [] items =new String[5];
@@ -130,7 +131,7 @@ public class ShowAllProduct extends javax.swing.JFrame {
             }
            System.out.println(SS);
                     String [] res = SS.split("@");
-                    DefaultTableModel model = (DefaultTableModel) AllProd.getModel();
+                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                     for (int i=0;i<res.length;i++)
                     {
                         String [] items =new String[5];
@@ -154,15 +155,25 @@ public class ShowAllProduct extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        AllProd = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocation(new java.awt.Point(250, 220));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        AllProd.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel1.setBackground(new java.awt.Color(240, 197, 220));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel1.setText("All information about products in inventory");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 390, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -178,16 +189,30 @@ public class ShowAllProduct extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(AllProd);
+        jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 37, 810, 232));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 850, 230));
 
-        jPanel1.setBackground(new java.awt.Color(240, 197, 220));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 300));
+        jButton2.setBackground(new java.awt.Color(178, 152, 220));
+        jButton2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(765, 285, 100, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 320));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        new MainPage(this.Method, this.Server, this.LAT).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,8 +220,10 @@ public class ShowAllProduct extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable AllProd;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

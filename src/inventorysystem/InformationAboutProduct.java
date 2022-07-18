@@ -5,6 +5,7 @@
  */
 package inventorysystem;
 
+import static inventorysystem.SignIn.isNumeric;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.BufferedOutputStream;
@@ -28,13 +29,24 @@ public class InformationAboutProduct extends javax.swing.JFrame {
     /**
      * Creates new form InformationAboutProduct
      */
-    String Method,Server;
-
-    public InformationAboutProduct(String method,String server) {
+    String Method,Server,LAT;
+    
+    public InformationAboutProduct(String method,String server,String lat) {
         initComponents();
         this.Method=method;
         this.Server=server;
-
+        this.LAT=lat;
+        jTable1.setRowHeight(50);
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(Color.BLACK);
+        jTable1.setBackground(Color.WHITE);
+        jTable1.setForeground(Color.BLACK);
+        jTable1.setFont(new Font("Comic Sans MS",Font.ITALIC,20));
+        jTable1.getTableHeader().setFont(new Font("Comic Sans MS",Font.ITALIC,15));
+        TableColumnModel mod1=jTable1.getColumnModel();
+        TableColumn TC=mod1.getColumn(1);
+        TC.setPreferredWidth(250);
+        
     }
 
     /**
@@ -46,34 +58,22 @@ public class InformationAboutProduct extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         prodidsearch = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocation(new java.awt.Point(250, 220));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        jLabel1.setText("Product id");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(173, 37, 91, 32));
-
-        prodidsearch.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        prodidsearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(prodidsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 36, 138, 32));
-
-        jButton1.setBackground(new java.awt.Color(204, 204, 255));
-        jButton1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        jButton1.setText("Search");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 37, 92, 32));
+        jPanel1.setBackground(new java.awt.Color(240, 197, 220));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,18 +100,54 @@ public class InformationAboutProduct extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 87, 789, 93));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 870, 80));
 
-        jPanel1.setBackground(new java.awt.Color(240, 197, 220));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 280));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jLabel1.setText("Product id");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 91, 32));
+
+        prodidsearch.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        prodidsearch.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jPanel1.add(prodidsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 150, 32));
+
+        jButton1.setBackground(new java.awt.Color(178, 152, 220));
+        jButton1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 92, 32));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel2.setText("show information about specific product");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 390, -1));
+
+        jButton2.setBackground(new java.awt.Color(178, 152, 220));
+        jButton2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(795, 205, 90, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 240));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(this.Server.equals("PHP Server")){
+        if(prodidsearch.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "please fill all fields", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(!isNumeric(prodidsearch.getText())){
+        JOptionPane.showMessageDialog(null, "please Enter data with correct formate", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(this.Server.equals("PHP Server")){
         if(this.Method.equals("GET"))sendData_GET("http://localhost/inventorysystem/PHP_Server.php");
         else sendData_POST("http://localhost/inventorysystem/PHP_Server.php");
         }
@@ -119,18 +155,14 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         if(this.Method.equals("GET"))sendData_GET("http://localhost:8085/InventorySystemServlet/Server");//set servlet url
         else sendData_POST("http://localhost:8085/InventorySystemServlet/Server");//set servlet url
         }
-        jTable1.setRowHeight(60);
-        jTable1.setShowGrid(true);
-        jTable1.setGridColor(Color.red);
-        jTable1.setBackground(Color.CYAN);
-        jTable1.setForeground(Color.WHITE);
-        jTable1.setSelectionBackground(Color.WHITE);
-        jTable1.setSelectionForeground(Color.BLACK);
-        jTable1.setFont(new Font("Comic Sans MS",Font.ITALIC,30));
-        TableColumnModel mod1=jTable1.getColumnModel();
-        TableColumn TC=mod1.getColumn(1);
-        TC.setPreferredWidth(300);
+         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        new MainPage(this.Method, this.Server, this.LAT).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
     InventorySystem n =new InventorySystem();
     void sendData_GET(String url) {
         String SS="";
@@ -257,7 +289,9 @@ public class InformationAboutProduct extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

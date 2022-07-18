@@ -13,6 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import javax.swing.JOptionPane;
+import java.util.*;
 //http://localhost:8085/inventorysystemServlet/
 /**                     
  *
@@ -38,9 +39,9 @@ public class SignIn extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         ServerType = new javax.swing.JComboBox<>();
         Method = new javax.swing.JComboBox<>();
-        Password = new javax.swing.JTextField();
         EmployeeID = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -51,6 +52,9 @@ public class SignIn extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
+        Password = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(350, 150));
@@ -61,9 +65,13 @@ public class SignIn extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel7.setText("Supervision  by: Manar Qamhieh");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 300, -1));
+
         ServerType.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         ServerType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PHP Server", "Servlet" }));
-        jPanel1.add(ServerType, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 130, 33));
+        jPanel1.add(ServerType, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 130, 33));
 
         Method.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         Method.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GET", "POST" }));
@@ -72,22 +80,18 @@ public class SignIn extends javax.swing.JFrame {
                 MethodActionPerformed(evt);
             }
         });
-        jPanel1.add(Method, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 130, 30));
-
-        Password.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        Password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel1.add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 130, 30));
+        jPanel1.add(Method, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 130, 30));
 
         EmployeeID.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        EmployeeID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        EmployeeID.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         EmployeeID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmployeeIDActionPerformed(evt);
             }
         });
-        jPanel1.add(EmployeeID, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 130, 30));
+        jPanel1.add(EmployeeID, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 130, 30));
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 255));
+        jButton1.setBackground(new java.awt.Color(178, 152, 220));
         jButton1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jButton1.setText("Confirm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -95,74 +99,109 @@ public class SignIn extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 270, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 270, 40));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel2.setText("Method");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 120, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 120, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel3.setText("Employee ID");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 130, 26));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 130, 26));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel4.setText("Password");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 120, 30));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 120, 30));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 400, 10));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 400, 10));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 400, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 400, 10));
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 400, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 400, 10));
 
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 400, 10));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 400, 10));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel5.setText("Server");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 120, 30));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 120, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 420));
+        Password.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PasswordActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 130, 30));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel1.setText("BY: Momen Odeh & Noor Aldeen AbuShehadeh");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 450, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel6.setText("Inventory System ");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 170, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+public static boolean isNumeric(String str) { 
+  try {  
+    Double.parseDouble(str);  
+    return true;
+  } catch(NumberFormatException e){  
+    return false;  
+  }  
+}
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if(EmployeeID.getText().isEmpty()||Password.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "please fill all fields", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(!isNumeric(EmployeeID.getText())){
+        JOptionPane.showMessageDialog(null, "please Enter data with correct formate", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
         if(ServerType.getSelectedItem().toString().equals("PHP Server")&&Method.getSelectedItem().toString().equals("GET")){
         String val=sendData_GET("http://localhost/inventorysystem/PHP_Server.php");
         if(val.split("!")[1].equals("true")){
            MainPage M1= new MainPage("GET", "PHP Server",Integer.parseInt(EmployeeID.getText()),val.split("!")[0]);
            M1.setVisible(true);
+           this.dispose();
         }
-        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.ERROR_MESSAGE);
+        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.WARNING_MESSAGE);
         }
         else if(ServerType.getSelectedItem().toString().equals("PHP Server")&&Method.getSelectedItem().toString().equals("POST")){
         String val=sendData_POST("http://localhost/inventorysystem/PHP_Server.php");
         if(val.split("!")[1].equals("true")){
             MainPage M1=new MainPage("POST", "PHP Server",Integer.parseInt(EmployeeID.getText()),val.split("!")[0]);
            M1.setVisible(true);
+           this.dispose();
         }
-        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.ERROR_MESSAGE);
+        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.WARNING_MESSAGE);
         }
         else if(ServerType.getSelectedItem().toString().equals("Servlet")&&Method.getSelectedItem().toString().equals("GET")){
         String val=sendData_GET("http://localhost:8085/InventorySystemServlet/Server");
         if(val.split("!")[0].equals("true")){
             MainPage M1=new MainPage("GET", "Servlet",Integer.parseInt(EmployeeID.getText()),val.split("!")[1]);
            M1.setVisible(true);
+           this.dispose();;
         }
-        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.ERROR_MESSAGE);
+        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.WARNING_MESSAGE);
         }
         else if(ServerType.getSelectedItem().toString().equals("Servlet")&&Method.getSelectedItem().toString().equals("POST")){
         String val=sendData_POST("http://localhost:8085/InventorySystemServlet/Server");
         if(val.split("!")[0].equals("true")){
             MainPage M1=new MainPage("POST", "Servlet",Integer.parseInt(EmployeeID.getText()),val.split("!")[1]);
            M1.setVisible(true);
+           this.dispose();
         }
-        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.ERROR_MESSAGE);
+        else JOptionPane.showMessageDialog(null, "information invalid", "Error", JOptionPane.WARNING_MESSAGE);
+        }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -246,6 +285,10 @@ return SS;
         // TODO add your handling code here:
     }//GEN-LAST:event_MethodActionPerformed
 
+    private void PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PasswordActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -254,13 +297,16 @@ return SS;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField EmployeeID;
     private javax.swing.JComboBox<String> Method;
-    private javax.swing.JTextField Password;
+    private javax.swing.JPasswordField Password;
     private javax.swing.JComboBox<String> ServerType;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

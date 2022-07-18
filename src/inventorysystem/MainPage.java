@@ -25,6 +25,14 @@ public class MainPage extends javax.swing.JFrame {
      */
     String Method,Server,LAT;
     int Empid;
+    
+    public MainPage(String method,String server,String lat) {
+        initComponents();
+        this.Method=method;
+        this.Server=server;
+        LAT=lat;
+        LastAccessTime.setText(lat);
+    }
     public MainPage(String method,String server,int eid,String lat) {
         initComponents();
         this.Method=method;
@@ -84,41 +92,40 @@ public class MainPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        LastAccessTime = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         prodid = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        LastAccessTime = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         Amount = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocation(new java.awt.Point(370, 190));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        LastAccessTime.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        getContentPane().add(LastAccessTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 230, 30));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        jLabel2.setText("Product id");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 120, 30));
-
-        prodid.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        prodid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getContentPane().add(prodid, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 150, 30));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        jLabel4.setText("Last access time");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 180, 30));
 
         jPanel1.setBackground(new java.awt.Color(240, 197, 220));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton3.setBackground(new java.awt.Color(204, 204, 255));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel2.setText("Product id");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 120, 30));
+
+        prodid.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        prodid.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jPanel1.add(prodid, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 150, 30));
+
+        LastAccessTime.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jPanel1.add(LastAccessTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 230, 30));
+
+        jButton3.setBackground(new java.awt.Color(178, 152, 220));
         jButton3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton3.setText("Show All Product in Inventory ");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -126,9 +133,9 @@ public class MainPage extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 280, 40));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 280, 40));
 
-        jButton4.setBackground(new java.awt.Color(204, 204, 255));
+        jButton4.setBackground(new java.awt.Color(178, 152, 220));
         jButton4.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton4.setText("Show Information about a Product ");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -136,9 +143,9 @@ public class MainPage extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, 40));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, 40));
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 255));
+        jButton1.setBackground(new java.awt.Color(178, 152, 220));
         jButton1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton1.setText("insert item");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -146,9 +153,9 @@ public class MainPage extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 150, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 140, 30));
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 255));
+        jButton2.setBackground(new java.awt.Color(178, 152, 220));
         jButton2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton2.setText("Withdraw item");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -156,34 +163,74 @@ public class MainPage extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 150, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, 140, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel3.setText("Amount");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 100, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 100, 30));
 
         Amount.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        Amount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel1.add(Amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 150, 30));
+        Amount.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jPanel1.add(Amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 150, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 640, 360));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel4.setText("Last access time");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 180, 30));
+
+        jButton5.setBackground(new java.awt.Color(204, 204, 255));
+        jButton5.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jButton5.setText("Back");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(445, 285, 420, 30));
+
+        jButton6.setBackground(new java.awt.Color(178, 152, 220));
+        jButton6.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jButton6.setText("LogOut");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(553, 230, 100, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 670, 270));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        new InformationAboutProduct(this.Method,this.Server).setVisible(true);
+        new InformationAboutProduct(this.Method,this.Server,this.LAT).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        new ShowAllProduct(this.Method,this.Server).setVisible(true);
+        new ShowAllProduct(this.Method,this.Server,this.LAT).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+public static boolean isNumeric(String str) { 
+  try {  
+    Double.parseDouble(str);  
+    return true;
+  } catch(NumberFormatException e){  
+    return false;  
+  }  
+}
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(this.Server.equals("PHP Server")){
+        if(prodid.getText().isEmpty()||Amount.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "please fill all fields", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(!isNumeric(Amount.getText())||!isNumeric(prodid.getText())){
+        JOptionPane.showMessageDialog(null, "please Enter data with correct formate", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(this.Server.equals("PHP Server")){
         if(Method=="GET") 
             sendData_GET("add","http://localhost/inventorysystem/PHP_Server.php");
         else  
@@ -195,11 +242,19 @@ public class MainPage extends javax.swing.JFrame {
         else  
             sendData_POST("add","http://localhost:8085/InventorySystemServlet/Server");//add url servlet
         }
+        prodid.setText("");
+        Amount.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(this.Server.equals("PHP Server")){
+        if(prodid.getText().isEmpty()||Amount.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null, "please fill all fields", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(!isNumeric(Amount.getText())||!isNumeric(prodid.getText())){
+        JOptionPane.showMessageDialog(null, "please Enter data with correct formate", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        else if(this.Server.equals("PHP Server")){
         if(Method=="GET")
             sendData_GET("delete","http://localhost/inventorysystem/PHP_Server.php");
         else
@@ -211,7 +266,21 @@ public class MainPage extends javax.swing.JFrame {
         else
             sendData_POST("delete","http://localhost:8085/InventorySystemServlet/Server");//add url servlet
         }
+        prodid.setText("");
+        Amount.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        new MainPage(this.Method, this.Server, this.LAT).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        new SignIn().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
 void sendData_GET(String operation,String url) {
         String SS="";
         DataInputStream dis;
@@ -306,6 +375,8 @@ void sendData_GET(String operation,String url) {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
