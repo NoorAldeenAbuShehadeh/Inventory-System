@@ -76,7 +76,10 @@ public class ShowAllProduct extends javax.swing.JFrame {
                     DefaultTableModel model = (DefaultTableModel) AllProd.getModel();
                     for (int i=0;i<res.length;i++)
                     {
-                        String [] items =res[i].split(":");
+                        String [] items =new String[5];
+                        String [] tmp= res[i].split(":");
+                        System.arraycopy(tmp, 0, items, 0, 4);
+                        items[4]=String.valueOf(n.API(Double.parseDouble(items[3])));
                         model.addRow(items);
                     }
                     
@@ -130,7 +133,10 @@ public class ShowAllProduct extends javax.swing.JFrame {
                     DefaultTableModel model = (DefaultTableModel) AllProd.getModel();
                     for (int i=0;i<res.length;i++)
                     {
-                        String [] items =res[i].split(":");
+                        String [] items =new String[5];
+                        String [] tmp= res[i].split(":");
+                        System.arraycopy(tmp, 0, items, 0, 4);
+                        items[4]=String.valueOf(n.API(Double.parseDouble(items[3])));
                         model.addRow(items);
                     }
         } catch (Exception e) {
@@ -138,6 +144,7 @@ public class ShowAllProduct extends javax.swing.JFrame {
         }
         
     }
+        InventorySystem n =new InventorySystem();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

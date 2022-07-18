@@ -131,7 +131,7 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         TableColumn TC=mod1.getColumn(1);
         TC.setPreferredWidth(300);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    InventorySystem n =new InventorySystem();
     void sendData_GET(String url) {
         String SS="";
         DataInputStream dis;
@@ -147,10 +147,20 @@ public class InformationAboutProduct extends javax.swing.JFrame {
                     SS = SS + (char) b;
             }
             System.out.println(SS);
+             
                     String [] res = SS.split("!");
                     if(res[0].equals("found"))
                     {
-                        String [] items =res[1].split(":");
+                        
+                        String [] items =new String[5];
+                        String [] tmp= res[1].split(":");
+                        System.arraycopy(tmp, 0, items, 0, 4);
+                        items[4]=String.valueOf(n.API(Double.parseDouble(items[3])));
+                        
+                        
+                        
+                        System.err.println(Double.parseDouble(items[3]));
+                        System.out.println(n.API(Double.parseDouble(items[3])));
                         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                         model.setRowCount(0);
                         model.addRow(items);
@@ -212,7 +222,18 @@ public class InformationAboutProduct extends javax.swing.JFrame {
                     String [] res = SS.split("!");
                     if(res[0].equals("found"))
                     {
-                        String [] items =res[1].split(":");
+                        String [] items =new String[5];
+                        String [] tmp= res[1].split(":");
+                        for(int i=0;i<4;i++)
+                        {
+                            items[i]=tmp[i]; 
+                        }
+                        items[4]=String.valueOf(n.API(Double.parseDouble(items[3])));
+                        
+                        
+                        
+                        System.err.println(Double.parseDouble(items[3]));
+                        System.out.println(n.API(Double.parseDouble(items[3])));
                         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                         model.setRowCount(0);
                         model.addRow(items);
