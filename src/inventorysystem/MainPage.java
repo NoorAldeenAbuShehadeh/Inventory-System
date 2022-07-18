@@ -25,7 +25,7 @@ public class MainPage extends javax.swing.JFrame {
      */
     String Method,Server,LAT;
     int Empid;
-    
+    InventorySystem Invs=new InventorySystem();
     public MainPage(String method,String server,String lat) {
         initComponents();
         this.Method=method;
@@ -42,46 +42,21 @@ public class MainPage extends javax.swing.JFrame {
         LastAccessTime.setText(lat);
         String namedata="Empselid#";
         String data=""+Empid+"#";
-        
-        try {
-        dataStr = "";
-        OutputStream os;
-        InputStream is;
-        addParameter("Empselid", ""+Empid);
-        String urlStr="";
-        if(Server.equals("PHP Server"))
-            urlStr ="http://localhost/inventorysystem/PHP_Server.php";
-        else
-            urlStr="http://localhost:8085/InventorySystemServlet/Server";
-        URLConnection myConn = null;
-        if(this.Method.equals("GET"))
-        {
-            urlStr+="?"+dataStr;
-            System.out.println(urlStr);
-            System.out.println("..............................");
-            URL myURL = new URL(urlStr);
-            DataInputStream dis = new DataInputStream(myURL.openConnection().getInputStream());
-             myConn = myURL.openConnection();
+        if(this.Server.equals("PHP Server")){
+        if(this.Method.equals("POST")){
+        Invs.sendData_POST(namedata,data,"http://localhost/inventorysystem/PHP_Server.php");
         }
-        else if(this.Method.equals("POST")){
-        URL myURL = new URL(urlStr);
-            myConn = myURL.openConnection();
-            myConn.setDoOutput(true);
-            myConn.setDoInput(true);
-            myConn.setRequestProperty("Content-Type", contentStr);
-            myConn.setUseCaches(false);
-            BufferedOutputStream out = new BufferedOutputStream(myConn.getOutputStream());
-            out.write(dataStr.getBytes());
-            out.close();
-            int b = -1;
-            is = myConn.getInputStream();
-            String SS="";
-            while ((b = is.read()) != -1) {
-                SS = SS + (char) b;
-            }
+        else{
+        Invs.sendData_GET("http://localhost/inventorysystem/PHP_Server.php?Empselid="+Empid);
         }
-        }catch(Exception e){
-        e.printStackTrace();
+        }
+        else{
+        if(this.Method.equals("POST")){
+        Invs.sendData_POST(namedata,data,"http://localhost:8085/InventorySystemServlet/Server");
+        }
+        else{
+        Invs.sendData_GET("http://localhost:8085/InventorySystemServlet/Server?Empselid="+Empid);
+        }
         }
     }
 
@@ -108,7 +83,7 @@ public class MainPage extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(370, 190));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -226,6 +201,7 @@ public static boolean isNumeric(String str) {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String result="";
         if(prodid.getText().isEmpty()||Amount.getText().isEmpty()){
         JOptionPane.showMessageDialog(null, "please fill all fields", "Error", JOptionPane.WARNING_MESSAGE);
         }
@@ -233,16 +209,26 @@ public static boolean isNumeric(String str) {
         JOptionPane.showMessageDialog(null, "please Enter data with correct formate", "Error", JOptionPane.WARNING_MESSAGE);
         }
         else if(this.Server.equals("PHP Server")){
-        if(Method=="GET") 
-            sendData_GET("add","http://localhost/inventorysystem/PHP_Server.php");
+            String namedata="ProdID#Ammount#status";
+            String data=""+prodid.getText()+"#"+Amount.getText()+"#add";
+        if(Method.equals("GET")) 
+            result=Invs.sendData_GET("http://localhost/inventorysystem/PHP_Server.php?ProdID="+prodid.getText()+"&Ammount="+Amount.getText()+"&status=add");
         else  
-            sendData_POST("add","http://localhost/inventorysystem/PHP_Server.php");
+            result=Invs.sendData_POST(namedata,data,"http://localhost/inventorysystem/PHP_Server.php");
         }
         else{
-         if(Method=="GET") 
-            sendData_GET("add","http://localhost:8085/InventorySystemServlet/Server");//add url servlet
+         String namedata="ProdID#Ammount#status";
+         String data=""+prodid.getText()+"#"+Amount.getText()+"#add";
+        if(Method.equals("GET")) 
+            result=Invs.sendData_GET("http://localhost:8085/InventorySystemServlet/Server?ProdID="+prodid.getText()+"&Ammount="+Amount.getText()+"&status=add");
         else  
-            sendData_POST("add","http://localhost:8085/InventorySystemServlet/Server");//add url servlet
+            result=Invs.sendData_POST(namedata,data,"http://localhost:8085/InventorySystemServlet/Server");
+        }
+        if(result.equals("found")){
+        JOptionPane.showMessageDialog(null,"update successfuly");
+        }
+        else{
+        JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
         }
         prodid.setText("");
         Amount.setText("");
@@ -250,23 +236,34 @@ public static boolean isNumeric(String str) {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        String result="";
         if(prodid.getText().isEmpty()||Amount.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null, "please fill all fields", "Error", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "please fill all fields", "", JOptionPane.WARNING_MESSAGE);
         }
         else if(!isNumeric(Amount.getText())||!isNumeric(prodid.getText())){
-        JOptionPane.showMessageDialog(null, "please Enter data with correct formate", "Error", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "please Enter data with correct formate", "", JOptionPane.WARNING_MESSAGE);
         }
         else if(this.Server.equals("PHP Server")){
-        if(Method=="GET")
-            sendData_GET("delete","http://localhost/inventorysystem/PHP_Server.php");
-        else
-            sendData_POST("delete","http://localhost/inventorysystem/PHP_Server.php");
+        String namedata="ProdID#Ammount#status";
+            String data=""+prodid.getText()+"#"+Amount.getText()+"#delete";
+        if(Method=="GET") 
+            result=Invs.sendData_GET("http://localhost/inventorysystem/PHP_Server.php?ProdID="+prodid.getText()+"&Ammount="+Amount.getText()+"&status=delete");
+        else  
+            result=Invs.sendData_POST(namedata,data,"http://localhost/inventorysystem/PHP_Server.php");
         }
         else{
-        if(Method=="GET")
-            sendData_GET("delete","http://localhost:8085/InventorySystemServlet/Server");//add url servlet
-        else
-            sendData_POST("delete","http://localhost:8085/InventorySystemServlet/Server");//add url servlet
+        String namedata="ProdID#Ammount#status";
+            String data=""+prodid.getText()+"#"+Amount.getText()+"#delete";
+        if(Method=="GET") 
+            result=Invs.sendData_GET("http://localhost:8085/InventorySystemServlet/Server?ProdID="+prodid.getText()+"&Ammount="+Amount.getText()+"&status=delete");
+        else  
+            result=Invs.sendData_POST(namedata,data,"http://localhost:8085/InventorySystemServlet/Server");
+        }
+        if(result.equals("found")){
+        JOptionPane.showMessageDialog(null,"update successfuly");
+        }
+        else{
+        JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
         }
         prodid.setText("");
         Amount.setText("");
@@ -283,88 +280,7 @@ public static boolean isNumeric(String str) {
         new SignIn().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
-void sendData_GET(String operation,String url) {
-        String SS="";
-        DataInputStream dis;
-        String prodid = this.prodid.getText().trim();
-        String amount = this.Amount.getText().trim();
-        try {
-            String str =url+"?ProdID="+prodid+"&Ammount="+amount+"&status="+operation;
-            URL u = new URL(str);
-            URLConnection myConn = u.openConnection();
-            dis = new DataInputStream(myConn.getInputStream());
-            
-            InputStream is = myConn.getInputStream();
-            int b;
-            while ((b = is.read()) != -1) {
-                    SS = SS + (char) b;
-            }
-           if(SS.equals("found")){
-            JOptionPane.showMessageDialog(null,"update successfuly");
-           }
-           else{
-            JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
-           }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
-    
-        
-    String dataStr = "";
-    String contentStr = "application/x-www-form-urlencoded";
 
-    public void addParameter(String ps, String vs) {
-        if (ps == null || vs == null || ps.length() == 0 || vs.length() == 0) {
-            return;
-        }
-        if (dataStr.length() > 0) {
-            dataStr += "&";
-        }
-        try {
-            dataStr += ps + "=" + URLEncoder.encode(vs, "ASCII");
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
-    
-        void sendData_POST(String operation,String url) {
-        dataStr = "";
-        OutputStream os;
-        InputStream is;
-         String prodid = this.prodid.getText().trim();
-        String amount = this.Amount.getText().trim();
-        addParameter("ProdID", prodid);
-        addParameter("Ammount", amount);
-        addParameter("status", operation);
-        String urlStr = url;
-        String SS = "";
-        try {
-            URL myURL = new URL(urlStr);
-            URLConnection myConn = myURL.openConnection();
-            myConn.setDoOutput(true);
-            myConn.setDoInput(true);
-            myConn.setRequestProperty("Content-Type", contentStr);
-            myConn.setUseCaches(false);
-            BufferedOutputStream out = new BufferedOutputStream(myConn.getOutputStream());
-            out.write(dataStr.getBytes());
-            out.close();
-            int b = -1;
-            is = myConn.getInputStream();
-            while ((b = is.read()) != -1) {
-                SS = SS + (char) b;
-            }
-           if(SS.equals("found")){
-            JOptionPane.showMessageDialog(null,"update successfuly");
-           }
-           else{
-            JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
-           }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        
-    }
     /**
      * @param args the command line arguments
      */

@@ -59,7 +59,8 @@ public class InventorySystem {
     }
     
     //******************************************************************************************************
-    public static String sendData_GET(String operation,String url) {
+    public static String sendData_GET(String url) {
+        System.out.println(url);
         String SS="";
         DataInputStream dis;
         try {
@@ -72,12 +73,6 @@ public class InventorySystem {
             while ((b = is.read()) != -1) {
                     SS = SS + (char) b;
             }
-//           if(SS.equals("found")){
-//            JOptionPane.showMessageDialog(null,"update successfuly");
-//           }
-//           else{
-//            JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
-//           }
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -103,6 +98,7 @@ public class InventorySystem {
     }
     
         public static String sendData_POST(String namedata,String data,String url) {
+        System.out.println(url);
         dataStr = "";
         String SS = "";
         OutputStream os;
@@ -128,13 +124,6 @@ public class InventorySystem {
             while ((b = is.read()) != -1) {
                 SS = SS + (char) b;
             }
-//           if(SS.equals("found")){
-//            JOptionPane.showMessageDialog(null,"update successfuly");
-//           }
-//           else{
-//            JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
-//           }
-
         } catch (Exception e) {
             System.out.println(e.toString());
         }
