@@ -36,6 +36,7 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         this.Method=method;
         this.Server=server;
         this.LAT=lat;
+        this.setTitle("Server is: "+Server+" , Method is: "+Method);
         jTable1.setRowHeight(50);
         jTable1.setShowGrid(true);
         jTable1.setGridColor(Color.BLACK);

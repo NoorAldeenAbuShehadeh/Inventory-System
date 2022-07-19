@@ -32,6 +32,7 @@ public class MainPage extends javax.swing.JFrame {
         this.Server=server;
         LAT=lat;
         LastAccessTime.setText(lat);
+        this.setTitle("Server is: "+Server+" , Method is: "+Method);
     }
     public MainPage(String method,String server,int eid,String lat) {
         initComponents();
@@ -39,6 +40,7 @@ public class MainPage extends javax.swing.JFrame {
         this.Server=server;
         Empid=eid;
         LAT=lat;
+        this.setTitle("Server is: "+Server+" , Method is: "+Method);
         LastAccessTime.setText(lat);
         String namedata="Empselid#";
         String data=""+Empid+"#";

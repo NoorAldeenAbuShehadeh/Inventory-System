@@ -48,6 +48,7 @@ public class ShowAllProduct extends javax.swing.JFrame {
         this.Method=method;
         this.Server=server;
         this.LAT=lat;
+        this.setTitle("Server is: "+Server+" , Method is: "+Method);
 //        String val="";
         if(server.equals("PHP Server")){
             if(this.Method.equals("GET")){
