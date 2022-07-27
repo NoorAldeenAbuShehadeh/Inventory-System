@@ -35,10 +35,13 @@ elseif($_REQUEST["status"]=="delete"){
     try{
         $qrstr="SELECT * FROM `products` WHERE `ProdID`=".$_REQUEST["ProdID"].";";
         $res=$conn->query($qrstr);
-        if($res->num_rows>0)echo "found";
-        else echo "notfound";
-        $qrstr="UPDATE products SET Ammount =Ammount-".$_REQUEST["Ammount"]." WHERE ProdID =".$_REQUEST["ProdID"];
-        $res=$conn->query($qrstr);
+        $row=$res->fetch_object();
+        if($res->num_rows>0 &&$row->Ammount>=$_REQUEST["Ammount"]){
+            $qrstr="UPDATE products SET Ammount =Ammount-".$_REQUEST["Ammount"]." WHERE ProdID =".$_REQUEST["ProdID"];
+            $res=$conn->query($qrstr);
+            echo "found";}
+        elseif($res->num_rows>0 &&$row->Ammount<$_REQUEST["Ammount"]) echo "dhdhjh";
+        else {echo "notfound";}
     }
     catch (Exception $ex){
     }
@@ -79,7 +82,6 @@ elseif(isset($_REQUEST['Empselid'])){
         $conn = new mysqli('localhost','root','','inventorysystem');
         $qrstr="UPDATE employess SET LAT='". date('Y-m-d H:i:s')."'WHERE EmpID='".$_REQUEST['Empselid']."';";
         $res=$conn->query($qrstr);
-        echo date('Y-m-d H:i:s');
         $conn->close();
     }
     catch (Exception $ex){

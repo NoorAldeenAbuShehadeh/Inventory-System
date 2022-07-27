@@ -72,10 +72,11 @@ public class Server extends HttpServlet {
                     ResultSet rs=stmt.executeQuery(sqlstr);
                     if(rs.next())
                     {
-                    out.print("found");
+                    
 //                    out.print(request.getParameter("status"));
                     if(request.getParameter("status").equals("add"))
                     {
+                    out.print("found");
                     int amm = Integer.parseInt(request.getParameter("Ammount"))+Integer.parseInt(rs.getString("Ammount"));
                     stmt = con.createStatement();
                     String sqlstr1="UPDATE `products` SET `Ammount`='"+ String.valueOf(amm)+ "' WHERE `ProdID`='"+ request.getParameter("ProdID")+"';";
@@ -84,9 +85,17 @@ public class Server extends HttpServlet {
                     }
                     else if(request.getParameter("status").equals("delete"))
                     {
+                    if(Integer.parseInt(rs.getString("Ammount")) >= Integer.parseInt(request.getParameter("Ammount")))
+                    {
+                     out.print("found");
                     int amm1 = Integer.parseInt(rs.getString("Ammount")) - Integer.parseInt(request.getParameter("Ammount"));
                     String sqlstr1="UPDATE `products` SET `Ammount`='"+String.valueOf(amm1)+ "' WHERE `ProdID`='"+ request.getParameter("ProdID")+"';";
                     stmt.executeUpdate(sqlstr1);
+                    }
+                    else
+                    {
+                        out.print("this ammount not avilable in inventory");
+                    }
 //                    con.commit(); 
                     }                    
                                         

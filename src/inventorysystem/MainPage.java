@@ -90,7 +90,7 @@ public class MainPage extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(240, 197, 220));
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -104,7 +104,6 @@ public class MainPage extends javax.swing.JFrame {
         LastAccessTime.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jPanel1.add(LastAccessTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 230, 30));
 
-        jButton3.setBackground(new java.awt.Color(178, 152, 220));
         jButton3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton3.setText("Show All Product in Inventory ");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +113,6 @@ public class MainPage extends javax.swing.JFrame {
         });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 280, 40));
 
-        jButton4.setBackground(new java.awt.Color(178, 152, 220));
         jButton4.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton4.setText("Show Information about a Product ");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +122,6 @@ public class MainPage extends javax.swing.JFrame {
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, 40));
 
-        jButton1.setBackground(new java.awt.Color(178, 152, 220));
         jButton1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton1.setText("insert item");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +131,6 @@ public class MainPage extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 140, 30));
 
-        jButton2.setBackground(new java.awt.Color(178, 152, 220));
         jButton2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton2.setText("Withdraw item");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -166,7 +162,6 @@ public class MainPage extends javax.swing.JFrame {
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(445, 285, 420, 30));
 
-        jButton6.setBackground(new java.awt.Color(178, 152, 220));
         jButton6.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton6.setText("LogOut");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -264,8 +259,11 @@ public static boolean isNumeric(String str) {
         if(result.equals("found")){
         JOptionPane.showMessageDialog(null,"update successfuly");
         }
-        else if(!result.isEmpty()){
+        else if(result.equals("notfound")){
         JOptionPane.showMessageDialog(null,"the product not found","",JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+        JOptionPane.showMessageDialog(null,"not available ammount","",JOptionPane.WARNING_MESSAGE);
         }
         prodid.setText("");
         Amount.setText("");

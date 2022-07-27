@@ -100,7 +100,7 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(240, 197, 220));
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -138,7 +138,6 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         prodidsearch.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jPanel1.add(prodidsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 150, 32));
 
-        jButton1.setBackground(new java.awt.Color(178, 152, 220));
         jButton1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton1.setText("Search");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -152,7 +151,6 @@ public class InformationAboutProduct extends javax.swing.JFrame {
         jLabel2.setText("show information about specific product");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 390, -1));
 
-        jButton2.setBackground(new java.awt.Color(178, 152, 220));
         jButton2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {

@@ -27,6 +27,7 @@ public class SignIn extends javax.swing.JFrame {
     public SignIn() {
         initComponents();
         //
+        
     }
     InventorySystem sys =new InventorySystem(); 
     /**
@@ -62,7 +63,7 @@ public class SignIn extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(240, 197, 220));
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -92,7 +93,6 @@ public class SignIn extends javax.swing.JFrame {
         });
         jPanel1.add(EmployeeID, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 130, 30));
 
-        jButton1.setBackground(new java.awt.Color(178, 152, 220));
         jButton1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jButton1.setText("Confirm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
